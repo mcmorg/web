@@ -24,4 +24,4 @@ workflows:
       - tests:
           filters:
              branches:
-                ignore: master
+                ignore: staging
