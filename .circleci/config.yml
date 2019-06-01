@@ -1,27 +1,15 @@
+# Use the latest 2.1 version of CircleCI pipeline processing engine, see https://circleci.com/docs/2.0/configuration-reference/
 version: 2.1
-jobs:
-  tests:
-    machine:
-      enabled: true
-      docker_layer_caching: true
-    working_directory: ~
-    steps:
-      - checkout
-      - run:
-          name: Test| check env
-          command: |
-            mkdir test
-            env
-            set
-            hostname
-            pwd
-            ls -la
 
+# Use a package of configuration called an orb, see https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  # Declare a dependency on the welcome-orb
+  welcome: circleci/welcome-orb@0.3.1
+
+# Orchestrate or schedule a set of jobs, see https://circleci.com/docs/2.0/workflows/
 workflows:
-  version: 2.1
-  tests:
+  # Name the workflow "Welcome"
+  Welcome:
+    # Run the welcome/run job in its own container
     jobs:
-      - tests:
-          filters:
-             branches:
-                ignore: staging
+      - welcome/run:
