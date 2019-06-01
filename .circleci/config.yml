@@ -16,3 +16,12 @@ jobs:
             hostname
             pwd
             ls -la
+
+workflows:
+  version: 2.1
+  tests:
+    jobs:
+      - tests:
+          filters:
+             branches:
+                ignore: master
