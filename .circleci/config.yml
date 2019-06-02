@@ -38,6 +38,7 @@ jobs:
           name: Push Docker image to Registry
           command: |
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
             if [[ ! -z "${CIRCLE_TAG}" ]]; then
                echo "echo ${CIRCLE_TAG}"
             else
@@ -63,13 +64,13 @@ workflows:
   version: 2
   WorkflowBuild:
     jobs:
-      - tests:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-                - /^stg-\d{8}.\d{2}$/
+#      - tests:
+#          filters:
+#            branches:
+#              ignore: /.*/
+#            tags:
+#              only:
+#                - /^stg-\d{8}.\d{2}$/
       - build-push:
           context: docker-repository
           requires:
