@@ -53,6 +53,7 @@ jobs:
                  
                 docker push $DOCKER_IMAGE
                 exit 0
+            fi
 workflows:
   version: 2.1
   WorkflowBuild:
