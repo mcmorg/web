@@ -65,7 +65,7 @@ workflows:
             tags:
               only:
                 - /^stg-\d{8}.\d{2}$/
-#     - build-push:
+     - build-push:
 #          context: docker-repository
 #          requires:
 #            - tests
