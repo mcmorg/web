@@ -24,15 +24,49 @@ jobs:
           name: Test | run env
           command: |
             docker exec -ti stg_test env
+  build-push:
+    machine:
+      enabled: true
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t mmoras/app:$CIRCLE_TAG .
+      - run:
+          name: Push Docker image to Registry
+          command: |
+#Se a branch fo nula e o tag não for nulo então a branch - master
+#            if [[ -z "${CIRCLE_BRANCH}" ]] && [[ ! -z "${CIRCLE_TAG}" ]]; then
+#                CIRCLE_BRANCH="master"
+#            fi
 
+#Efetua o docker login(isso fica setado no contexto do workflow)             
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+             
+            if [[ ! -z "${CIRCLE_TAG}" ]]; then
+                 
+                DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
+ 
+                if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
+                  docker tag $DOCKER_IMAGE 'mmoras/app:latest'
+                  docker push 'mmoras/app:latest'
+                elif [[ "$CIRCLE_TAG" =~ ^stg ]]; then
+                  docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
+                  docker push 'mmoras/app::stg-latest'
+                fi
+                 
+                docker push $DOCKER_IMAGE
+                exit 0
 workflows:
   version: 2.1
-  WorkflowTESTES:
-    jobs:
-      - tests:
-          filters:
-             branches:
-                ignore: staging
+#  WorkflowTESTES:
+#    jobs:
+#      - tests:
+#          filters:
+#             branches:
+#                ignore: staging
   WorkflowBuild:
     jobs:
       - tests:
@@ -42,16 +76,16 @@ workflows:
             tags:
               only:
                 - /^stg-\d{8}.\d{2}$/
-#      - build-push:
-#          context: docker-repository
-#          requires:
-#            - tests
-#          filters:
-#            branches:
-#              ignore: /.*/
-#            tags:
-#              only:
-#                - /^prod-\d{8}.\d{2}$/
+     - build-push:
+          context: docker-repository
+          requires:
+            - tests
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /^stg-\d{8}.\d{2}$/
 #      - hold:
 #          type: approval
 #          requires:
