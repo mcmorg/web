@@ -40,33 +40,18 @@ jobs:
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
             if [[ ! -z "${CIRCLE_TAG}" ]]; then
-              if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
-                 #docker tag $DOCKER_IMAGE 'mmoras/app:latest'
-                 #docker push 'mmoras/app:latest'
-              elif [[ "$CIRCLE_TAG" =~ ^stg ]]; then
-                 #docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
-                 #docker push 'mmoras/app::stg-latest'
-              else
-                 echo "echo ${CIRCLE_TAG}"
-              fi
+            if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
+            docker tag $DOCKER_IMAGE 'mmoras/app:latest'
+            docker push 'mmoras/app:latest'
+            elif [[ "$CIRCLE_TAG" =~ ^stg ]]; then
+            docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
+            docker push 'mmoras/app::stg-latest'
             else
-               echo "NULO"
+            echo "echo ${CIRCLE_TAG}"
             fi
-# 
-#                if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
-#                  docker tag $DOCKER_IMAGE 'mmoras/app:latest'
-#                  docker push 'mmoras/app:latest'
-#                elif [[ "$CIRCLE_TAG" =~ ^stg ]]; then
-#                  docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
-#                  docker push 'mmoras/app::stg-latest'
-#                fi
-#                 
-#                docker push $DOCKER_IMAGE
-#                exit 0
-#             else
-#                DOCKER_IMAGE="mmoras/app:$(echo $CIRCLE_BRANCH | tr / -)-${CIRCLE_WORKFLOW_ID}"
-#                docker push mmoras/app:$(echo $CIRCLE_BRANCH | tr / -)-${CIRCLE_WORKFLOW_ID}
-#            fi
+            else
+            echo "NULO"
+            fi
 workflows:
   version: 2
   WorkflowBuild:
