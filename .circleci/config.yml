@@ -44,13 +44,13 @@ jobs:
             docker tag $DOCKER_IMAGE 'mmoras/app:latest'
             docker push 'mmoras/app:latest'
             fi
-#            if [[ "$CIRCLE_TAG" == stg-* ]] ;
-#            then
-#                docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
-#                docker push 'mmoras/app::stg-latest'
+            if [[ "$CIRCLE_TAG" == stg-* ]] ;
+            then
+            docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
+            docker push 'mmoras/app::stg-latest'
 #            else
 #              echo "echo ${CIRCLE_TAG}"
-#            fi
+            fi
 workflows:
   version: 2
   WorkflowBuild:
