@@ -36,13 +36,13 @@ workflows:
   Workflow_Build:
     jobs:
       - tests:
-#          context: docker-repository
           filters:
             branches:
               ignore: /.*/
             tags:
               only:
-                - /^stg-\d{8}.\d{2}$/
+                - /.*/
+#                - /^stg-\d{8}.\d{2}$/
 #      - build-push:
 #          context: docker-repository
 #          requires:
