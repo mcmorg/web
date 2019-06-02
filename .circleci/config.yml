@@ -27,13 +27,13 @@ jobs:
 
 workflows:
   version: 2.1
-  Workflow_TESTES:
+  WorkflowTESTES:
     jobs:
       - tests:
           filters:
              branches:
                 ignore: staging
-  Workflow_Build:
+  WorkflowBuild:
     jobs:
       - tests:
           filters:
@@ -41,8 +41,7 @@ workflows:
               ignore: /.*/
             tags:
               only:
-                - /.*/
-#                - /^stg-\d{8}.\d{2}$/
+                - /^stg-\d{8}.\d{2}$/
 #      - build-push:
 #          context: docker-repository
 #          requires:
