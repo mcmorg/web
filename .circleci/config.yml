@@ -41,11 +41,11 @@ jobs:
             DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
             if [[ ! -z "${CIRCLE_TAG}" ]]; then
               if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
-                 docker tag $DOCKER_IMAGE 'mmoras/app:latest'
-                 docker push 'mmoras/app:latest'
+                 #docker tag $DOCKER_IMAGE 'mmoras/app:latest'
+                 #docker push 'mmoras/app:latest'
               elif [[ "$CIRCLE_TAG" =~ ^stg ]]; then
-                 docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
-                 docker push 'mmoras/app::stg-latest'
+                 #docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
+                 #docker push 'mmoras/app::stg-latest'
               else
                  echo "echo ${CIRCLE_TAG}"
               fi
