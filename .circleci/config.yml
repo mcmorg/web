@@ -37,12 +37,6 @@ jobs:
       - run:
           name: Push Docker image to Registry
           command: |
-#Se a branch fo nula e o tag não for nulo então a branch - master
-#            if [[ -z "${CIRCLE_BRANCH}" ]] && [[ ! -z "${CIRCLE_TAG}" ]]; then
-#                CIRCLE_BRANCH="master"
-#            fi
-
-#Efetua o docker login(isso fica setado no contexto do workflow)             
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
              
             if [[ ! -z "${CIRCLE_TAG}" ]]; then
