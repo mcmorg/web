@@ -43,12 +43,11 @@ jobs:
             then
                 docker tag $DOCKER_IMAGE 'mmoras/app:latest'
                 docker push 'mmoras/app:latest'
-            else 
+            fi
             if [[ "$CIRCLE_TAG" == stg-* ]] ;
             then
                 docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
                 docker push 'mmoras/app::stg-latest'
-            fi
             else
               echo "echo ${CIRCLE_TAG}"
             fi
