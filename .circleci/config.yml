@@ -10,9 +10,8 @@ jobs:
       - run:
           name: Test| check env
           command: |
-            mkdir test
             env
-            set
+            echo "fim env"
             hostname
             pwd
             ls -la
@@ -24,4 +23,4 @@ workflows:
       - tests:
           filters:
              branches:
-                ignore: staging
+                ignore: master
