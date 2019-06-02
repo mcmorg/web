@@ -74,23 +74,3 @@ workflows:
             tags:
               only:
                 - /^stg-\d{8}.\d{2}$/
-#      - hold:
-#          type: approval
-#          requires:
-#            - build-push
-#          filters:
-#            branches:
-#              ignore: /.*/
-#            tags:
-#              only:
-#                - /^prod-\d{8}.\d{2}$/
-#      - deploy:
-#          context: docker-repository
-#          requires:
-#            - hold
-#          filters:
-#            branches:
-#              ignore: /.*/
-#            tags:
-#              only:
-#                - /^prod-\d{8}.\d{2}$/
