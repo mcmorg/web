@@ -38,9 +38,11 @@ jobs:
           name: Push Docker image to Registry
           command: |
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-             
-#            if [[ ! -z "${CIRCLE_TAG}" ]]; then
-#                 
+            if [[ ! -z "${CIRCLE_TAG}" ]]; then
+               echo "echo ${CIRCLE_TAG}"
+            else
+               echo "NULO"
+            fi
 #                DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
 # 
 #                if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
