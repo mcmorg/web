@@ -36,7 +36,7 @@ workflows:
   Workflow_Build:
     jobs:
       - tests:
-          context: docker-repository
+#          context: docker-repository
           filters:
             branches:
               ignore: /.*/
