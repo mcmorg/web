@@ -39,16 +39,16 @@ jobs:
           command: |
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
-            if [[ "$CIRCLE_TAG" == prod-* ]] ; 
+            if [[ "$CIRCLE_TAG" == stg-* ]] ; 
             then
             docker tag $DOCKER_IMAGE 'mmoras/app:latest'
             docker push 'mmoras/app:latest'
             fi
-            if [[ "$CIRCLE_TAG" == stg-* ]] ;
-            then
-            docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
-            docker push 'mmoras/app::stg-latest'
-            fi
+#            if [[ "$CIRCLE_TAG" == stg-* ]] ;
+#            then
+#            docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
+#            docker push 'mmoras/app::stg-latest'
+#            fi
 workflows:
   version: 2
   WorkflowBuild:
