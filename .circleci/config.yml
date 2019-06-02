@@ -53,6 +53,9 @@ jobs:
                  
                 docker push $DOCKER_IMAGE
                 exit 0
+             else
+                DOCKER_IMAGE="mmoras/app:$(echo $CIRCLE_BRANCH | tr / -)-${CIRCLE_WORKFLOW_ID}"
+                docker push mmoras/app:$(echo $CIRCLE_BRANCH | tr / -)-${CIRCLE_WORKFLOW_ID}
             fi
 workflows:
   version: 2
