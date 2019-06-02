@@ -40,11 +40,18 @@ jobs:
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
             DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
             if [[ ! -z "${CIRCLE_TAG}" ]]; then
-               echo "echo ${CIRCLE_TAG}"
+              if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
+                 docker tag $DOCKER_IMAGE 'mmoras/app:latest'
+                 docker push 'mmoras/app:latest'
+              elif [[ "$CIRCLE_TAG" =~ ^stg ]]; then
+                 docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
+                 docker push 'mmoras/app::stg-latest'
+              else
+                 echo "echo ${CIRCLE_TAG}"
+              fi
             else
                echo "NULO"
             fi
-#                DOCKER_IMAGE="mmoras/app:${CIRCLE_TAG}"
 # 
 #                if [[ "$CIRCLE_TAG" =~ ^prod ]]; then
 #                  docker tag $DOCKER_IMAGE 'mmoras/app:latest'
