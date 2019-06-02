@@ -15,6 +15,15 @@ jobs:
             hostname
             pwd
             ls -la
+      - run:
+          name: Test | Build and run image
+          command: |
+            docker build -t mmoras/stg:test .
+            docker run -it --name stg_test -d mmoras/stg:test
+      - run:
+          name: Test | run env
+          command: |
+            docker exec -ti stg_test env
 
 workflows:
   version: 2.1
