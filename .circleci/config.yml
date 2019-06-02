@@ -27,9 +27,49 @@ jobs:
 
 workflows:
   version: 2.1
-  WorkflowName:
+  Workflow_TESTES:
     jobs:
       - tests:
           filters:
              branches:
-                ignore: master
+                ignore: staging
+  Workflow_Build:
+    jobs:
+      - tests:
+          context: docker-repository
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /^stg-\d{8}.\d{2}$/
+#      - build-push:
+#          context: docker-repository
+#          requires:
+#            - tests
+#          filters:
+#            branches:
+#              ignore: /.*/
+#            tags:
+#              only:
+#                - /^prod-\d{8}.\d{2}$/
+#      - hold:
+#          type: approval
+#          requires:
+#            - build-push
+#          filters:
+#            branches:
+#              ignore: /.*/
+#            tags:
+#              only:
+#                - /^prod-\d{8}.\d{2}$/
+#      - deploy:
+#          context: docker-repository
+#          requires:
+#            - hold
+#          filters:
+#            branches:
+#              ignore: /.*/
+#            tags:
+#              only:
+#                - /^prod-\d{8}.\d{2}$/
