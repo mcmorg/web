@@ -48,8 +48,6 @@ jobs:
             then
             docker tag $DOCKER_IMAGE 'mmoras/app:stg-latest'
             docker push 'mmoras/app::stg-latest'
-#            else
-#              echo "echo ${CIRCLE_TAG}"
             fi
 workflows:
   version: 2
